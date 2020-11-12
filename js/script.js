@@ -76,10 +76,12 @@ const stopWatchBtn = document.querySelector(".stopwatch__btn"); // подклю�
 const tabIndicate = document.querySelector(".tabsLink__span"); // подключаемся к индикатору таба секундомер
 
 stopWatchBtn.addEventListener('click', function () {
+    // Абдулла ака обратите внимание пожалуйста на двойной клик, т.е чтоб что то переключалось приходиться 2 раза наживать, через 1 click не получалось настроить
     if (stopWatchBtn.innerHTML == "start") {
-        stopWatchBtn.addEventListener('click', function () {
+        stopWatchBtn.addEventListener('click', function () {    
         stopWatchBtn.innerHTML = "stop";
         tabIndicate.classList.add("active")
+    // так же правильно ли было ставить функцию сюда, при каждом последующем клике функция ускорялась
         tick()
         })
     }
@@ -89,6 +91,7 @@ stopWatchBtn.addEventListener('click', function () {
         stopWatchBtn.innerHTML = "clear";
         tabIndicate.classList.remove("active")
         tabIndicate.classList.add("active_clear")
+    // здесь пытался остановить функцию tick() с помощью clearTimeout но не работает
         stoptick()
         })
     }
@@ -105,6 +108,7 @@ stopWatchBtn.addEventListener('click', function () {
 
 function tick() {
     stopSecond.innerHTML++;
+    stopSecond.innerHTML = stopSecond.innerHTML < 10 ? "0" + stopSecond.innerHTML : stopSecond.innerHTML;
     if (stopSecond.innerHTML >= 60) {
         stopMinute.innerHTML++;
         stopSecond.innerHTML -= 60;
@@ -115,15 +119,14 @@ function tick() {
         stopMinute.innerHTML -= 60;
         stopHour.innerHTML = stopHour.innerHTML < 10 ? "0" + stopHour.innerHTML : stopHour.innerHTML;
     }
-    stopSecond.innerHTML = stopSecond.innerHTML < 10 ? "0" + stopSecond.innerHTML : stopSecond.innerHTML;
-    timetick = setTimeout(() => { tick() }, 1000);
+    timetick = setTimeout(() => {tick()}, 1000);
 }
 
 function stoptick() {
     if (timetick) {
         clearTimeout(timetick)
-        stopMinute.innerHTML
-        stopSecond.innerHTML
-        stopHour.innerHTML
+        stopMinute.innerHTML //оставить значение на той цифре где был счёт P.S Правда не знаю будет так работать))
+        stopSecond.innerHTML //оставить значение на той цифре где был счёт
+        stopHour.innerHTML  //оставить значение на той цифре где был счёт
     }
 }
