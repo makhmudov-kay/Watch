@@ -76,57 +76,34 @@ const stopWatchBtn = document.querySelector(".stopwatch__btn"); // подклю�
 const tabIndicate = document.querySelector(".tabsLink__span"); // подключаемся к индикатору таба секундомер
 
 stopWatchBtn.addEventListener('click', function () {
-    // Абдулла ака обратите внимание пожалуйста на двойной клик, т.е чтоб что то переключалось приходиться 2 раза наживать, через 1 click не получалось настроить
-    if (stopWatchBtn.innerHTML == "start") {
-        stopWatchBtn.addEventListener('click', function () {    
+    if (stopWatchBtn.innerHTML == "start") {  
         stopWatchBtn.innerHTML = "stop";
-        tabIndicate.classList.add("active")
-    // так же правильно ли было ставить функцию сюда, при каждом последующем клике функция ускорялась
+        tabIndicate.classList.add("active");
         tick()
-        })
-    }
-
-    if (stopWatchBtn.innerHTML == "stop") {
-        stopWatchBtn.addEventListener('click', function () {
+    } else if (stopWatchBtn.innerHTML == "stop") {
         stopWatchBtn.innerHTML = "clear";
-        tabIndicate.classList.remove("active")
-        tabIndicate.classList.add("active_clear")
-    // здесь пытался остановить функцию tick() с помощью clearTimeout но не работает
-        stoptick()
-        })
-    }
-
-    if (stopWatchBtn.innerHTML == "clear") {
-        stopWatchBtn.addEventListener('click', function () {
+        tabIndicate.classList.remove("active");
+        tabIndicate.classList.add("active_clear");
+    }else if (stopWatchBtn.innerHTML == "clear") {
         stopWatchBtn.innerHTML = "start";
-        tabIndicate.classList.remove("active_clear")
-        })
+        tabIndicate.classList.remove("active_clear");
+        stopSecond.innerHTML = "0";
+        stopMinute.innerHTML = "0";
+        stopHour.innerHTML = "0";
     }
 })
 
-
-
 function tick() {
     stopSecond.innerHTML++;
-    stopSecond.innerHTML = stopSecond.innerHTML < 10 ? "0" + stopSecond.innerHTML : stopSecond.innerHTML;
     if (stopSecond.innerHTML >= 60) {
         stopMinute.innerHTML++;
         stopSecond.innerHTML -= 60;
-        stopMinute.innerHTML = stopMinute.innerHTML < 10 ? "0" + stopMinute.innerHTML : stopMinute.innerHTML;
     }
     if (stopMinute.innerHTML >= 60) {
         stopHour.innerHTML++;
         stopMinute.innerHTML -= 60;
-        stopHour.innerHTML = stopHour.innerHTML < 10 ? "0" + stopHour.innerHTML : stopHour.innerHTML;
     }
-    timetick = setTimeout(() => {tick()}, 1000);
-}
-
-function stoptick() {
-    if (timetick) {
-        clearTimeout(timetick)
-        stopMinute.innerHTML //оставить значение на той цифре где был счёт P.S Правда не знаю будет так работать))
-        stopSecond.innerHTML //оставить значение на той цифре где был счёт
-        stopHour.innerHTML  //оставить значение на той цифре где был счёт
+    if (stopWatchBtn.innerHTML == "stop") {
+        timetick = setTimeout(() => {tick()}, 1000);        
     }
 }
