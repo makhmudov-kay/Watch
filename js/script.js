@@ -94,7 +94,9 @@ stopWatchBtn.addEventListener('click', function () {
 })
 
 function tick() {
-    stopSecond.innerHTML++;
+    if (stopWatchBtn.innerHTML == "stop") {
+        stopSecond.innerHTML++;
+    }
     if (stopSecond.innerHTML >= 60) {
         stopMinute.innerHTML++;
         stopSecond.innerHTML -= 60;
